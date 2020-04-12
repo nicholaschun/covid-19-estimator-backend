@@ -42,7 +42,7 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
   const readStream = fs.createReadStream(path.join(__dirname, 'logs.log'));
-  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Type', 'text/plain;charset=utf-8');
   readStream.on('open', () => {
     readStream.pipe(res);
   });
