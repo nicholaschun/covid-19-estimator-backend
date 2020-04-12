@@ -32,8 +32,8 @@ app.post('/api/v1/on-covid-19', (req, res) => {
 });
 
 app.post('/api/v1/on-covid-19/xml', (req, res) => {
-  res.setHeader('Content-Type', 'text/xml');
-  res.json(getData(req.body));
+  res.setHeader('Content-Type', 'application/xml');
+  res.send(getData(req.body));
 });
 
 app.post('/api/v1/on-covid-19/json', (req, res) => {
@@ -42,10 +42,10 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
   const readStream = fs.createReadStream(path.join(__dirname, 'logs.log'));
+  res.setHeader('Content-Type', 'text/plain');
   readStream.on('open', () => {
     readStream.pipe(res);
   });
-  res.setHeader('Content-Type', 'plain/text');
 });
 
 app.listen(port, () => {
