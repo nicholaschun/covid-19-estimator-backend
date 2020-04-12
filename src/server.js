@@ -15,7 +15,7 @@ const hostname = '127.0.0.1';
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.xml({ type: 'text/xml' }));
 const morganFormat = ':method \t :url \t :status \t  :response-time ms';
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs.log'), {
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs.text'), {
   flags: 'a'
 });
 
@@ -41,7 +41,7 @@ app.post('/api/v1/on-covid-19/json', (req, res) => {
 });
 
 app.get('/api/v1/on-covid-19/logs', (req, res) => {
-  const readStream = fs.createReadStream(path.join(__dirname, 'logs.log'));
+  const readStream = fs.createReadStream(path.join(__dirname, 'logs.text'));
   res.setHeader('Content-Type', 'text/plain;charset=utf-8');
   readStream.on('open', () => {
     readStream.pipe(res);
